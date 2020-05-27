@@ -29,9 +29,7 @@ namespace JurassicPark
             {
                 Console.WriteLine("Sorry this is not valid input 0 will be your answer");
                 return 0;
-
             }
-
 
         }
 
