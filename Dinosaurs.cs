@@ -1,7 +1,7 @@
 using System;
 namespace JurassicPark
 {
-    class Dinosaurs
+    class Dinosaur
     {
 
         //First name Strings

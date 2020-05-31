@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace JurassicPark
 {
@@ -29,7 +30,9 @@ namespace JurassicPark
             {
                 Console.WriteLine("Sorry this is not valid input 0 will be your answer");
                 return 0;
+
             }
+
 
         }
 
@@ -39,63 +42,83 @@ namespace JurassicPark
 
             //Add Dinosaurs
 
-            var Velociraptor = new Dinosaurs
+            var Velociraptor = new Dinosaur
             {
                 Name = "Velociraptor",
-                Diet = "Herbavore",
+                Diet = "Herbivore",
                 Acquired = "May 14th 2020",
                 Enclosure = "Unit A",
-                Weight = "50 lbs",
+                Weight = "50 lbs"
             };
 
-            var Triceratops = new Dinosaurs
+            var Triceratops = new Dinosaur
             {
                 Name = "Triceratops",
-                Diet = "Herbavore",
+                Diet = "Herbivore",
                 Acquired = "May 15th 2020",
                 Enclosure = "Unit A",
-                Weight = "500 lbs",
+                Weight = "500 lbs"
             };
 
-            var Tyrannosaurus = new Dinosaurs
+            var Tyrannosaurus = new Dinosaur
             {
                 Name = "Tyrannosaurus",
                 Diet = "Carnivore",
                 Acquired = "May 14th 2020",
                 Enclosure = "Unit B",
-                Weight = "800 lbs",
+                Weight = "800 lbs"
 
             };
 
-            var Spinosaurus = new Dinosaurs
+            var Spinosaurus = new Dinosaur
             {
                 Name = "Spinosaurus",
                 Diet = "Carnivore",
                 Acquired = "May 16th 2020",
                 Enclosure = "Unit B",
-                Weight = "600 lbs",
+                Weight = "600 lbs"
 
 
             };
 
-            var Cryolophosaurus = new Dinosaurs
+            var Cryolophosaurus = new Dinosaur
             {
                 Name = "Cryolosaurus",
                 Diet = "Carnivore",
                 Acquired = "May 17h 2020",
                 Enclosure = "Unit B",
-                Weight = "100 lbs",
+                Weight = "100 lbs"
 
             };
             //List the Dinos
 
-            var listOfDinosaurs = new List<Dinosaurs>();
+            var listOfDinosaurs = new List<Dinosaur>();
 
             listOfDinosaurs.Add(Velociraptor);
             listOfDinosaurs.Add(Triceratops);
             listOfDinosaurs.Add(Tyrannosaurus);
             listOfDinosaurs.Add(Spinosaurus);
             listOfDinosaurs.Add(Cryolophosaurus);
+
+
+
+
+
+            //foreach (var dinosaur in listOfDinosaurs)
+            //{
+            //  Console.WriteLine(dinosaur.Name);
+            //}
+
+
+            //var dinosaursThatAreCarnivores = listOfDinosaurs.Where(dinosaur => dinosaur.Diet == "Carnivore");
+
+
+
+            //foreach (var dinosaur in dinosaursThatAreCarnivores)
+            // {
+            //    Console.WriteLine($"{dinosaur.Name}");
+
+            // }
 
 
 
@@ -133,27 +156,149 @@ namespace JurassicPark
 
                 var choice = PromptForString("Choice: ");
 
+                if (choice == "S")
+                {
+                    var choiceOfDiet = PromptForString("(C)arnivores or (H)erbivores?");
+
+                    var dinosaursThatAreCarnivores = listOfDinosaurs.Where(dinosaur => dinosaur.Diet == "Carnivores");
+
+                    if (choiceOfDiet == "C")
+                    {
+
+                        foreach (var dinosaur in dinosaursThatAreCarnivores)
+                        {
+                            Console.WriteLine(dinosaur.Name);
+
+                        }
+
+                    }
 
 
-                if (choice == "Q")
-                {
-                    userHasChosenToQuit = true;
-                }
-                if (choice == "V")
-                {
-                    Console.WriteLine("Here are all our dinosaurs");
-                }
 
-                //Name is a diet that weighs they were committed on and are located at 
-                foreach (var Dinosaurs in listOfDinosaurs)
-                {
-                    var description = $"{Dinosaurs.Name} is a {Dinosaurs.Diet} who weighs {Dinosaurs.Weight}, they were acquired on {Dinosaurs.Acquired} and are located in {Dinosaurs.Enclosure}";
-                    Console.WriteLine(description);
                 }
             }
+
+            /* //To Quit for some reason
+             if (choice == "Q")
+             {
+                 userHasChosenToQuit = true;
+             }
+             //To Remove Dino
+
+             //
+             // if (foundDinosaur == null)
+             //{
+             //                         Console.WriteLine($"There is no Dinosaur named {foundDinosaur}");
+             //                         break;
+
+             // }
+
+             //
+             if (choice == "R")
+             {
+                 var nameOfDinosaurBeingRemoved = PromptForString("Name of dinosaur to be removed: ");
+                 var foundDinosaur = listOfDinosaurs.FirstOrDefault(dinosaurs => nameOfDinosaurBeingRemoved == dinosaurs.Name);
+                 var foundDinosaurDescription = foundDinosaur.Description();
+                 Console.WriteLine(foundDinosaurDescription);
+                 var shouldWeRemove = PromptForString("Are you sure you want to remove? (Y/N):");
+
+                 if (shouldWeRemove == "Y")
+                 {
+                     listOfDinosaurs.Remove(foundDinosaur);
+
+                 }
+
+                 if (shouldWeRemove == "N")
+                 {
+                     Console.WriteLine("Okay, back to main menu");
+                 }
+             }
+
+             //To Add a Dino
+             if (choice == "A")
+             {
+                 var newName = PromptForString("Name: ");
+                 var newDiet = PromptForString("Diet: ");
+                 var newWeight = PromptForString("Weight: ");
+                 var newAcquired = PromptForString("Acquired: ");
+                 var newEnclosure = PromptForString("Enclosure: ");
+
+                 listOfDinosaurs.Add(new Dinosaur
+                 {
+                     Name = newName,
+                     Diet = newDiet,
+                     Weight = newWeight,
+                     Acquired = newAcquired,
+                     Enclosure = newEnclosure,
+
+                 });
+             }
+
+             //Show all Dinos
+             if (choice == "V")
+             {
+                 Console.WriteLine("Here are all our dinosaurs");
+
+
+                 //Name is a diet that weighs they were committed on and are located at 
+                 foreach (var Dinosaurs in listOfDinosaurs)
+                 {
+                     var description = Dinosaurs.Description();
+                     Console.WriteLine(description);
+                 }
+             }
+
+             //Transfer Dino
+
+
+             //Summary
+             if (choice == "S")
+             {
+                 var choiceOfDiet = PromptForString("(C)arnivores or (H)erbivores?");
+
+                 var dinosaursThatAreCarnivores = listOfDinosaurs.Where(dinosaur => dinosaur.Diet == "Carnivores");
+
+                 if (choiceOfDiet == "C")
+                 {
+
+                     foreach (var dinosaur in dinosaursThatAreCarnivores)
+                     {
+                         Console.WriteLine(dinosaur.Name);
+
+                     }
+
+                 }
+
+
+
+             }*/
+
+
+
+
+
+
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
